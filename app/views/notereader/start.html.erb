@@ -1,0 +1,134 @@
+<div class="notereader-page">
+
+	<!-- Right Hand bar -->
+	<div style="margin-top:20px;">
+		<div class="title">
+			Right hand bar
+		</div>
+		<div style="position:relative;">
+			<svg height="100" width="150">
+				<line x1="0" y1="30" x2="200" y2="30" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<line x1="0" y1="40" x2="200" y2="40" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<line x1="0" y1="50" x2="200" y2="50" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<line x1="0" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<line x1="0" y1="70" x2="200" y2="70" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<ellipse cx="90" cy="30" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2" />
+			</svg>
+			<%= image_tag("right_hand.png", size: "71x79", style: "position: absolute; left: -5px; top: 12px;" ) %>
+		</div>
+
+		
+	</div>
+
+	<!-- Left Hand bar -->
+	<div>
+		<div class="title">
+			Left hand bar
+		</div>
+
+		<div style="position:relative;">
+			<svg height="100" width="150">
+				<line x1="0" y1="30" x2="200" y2="30" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<line x1="0" y1="40" x2="200" y2="40" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<line x1="0" y1="50" x2="200" y2="50" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<line x1="0" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<line x1="0" y1="70" x2="200" y2="70" style="stroke:rgb(0,0,0); stroke-width:1" />
+				<ellipse cx="90" cy="30" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2" />
+			</svg>
+			<%= image_tag("left_hand.png", size: "28x33", style: "position: absolute; left: 21px; top: 30px;" ) %>
+		</div>
+	</div>
+
+	<!-- Piano Keys -->
+	<div>
+		<div class="title">
+			Piano keys
+		</div>
+
+		<div>
+			<div class="alert alert-success hidden" id="flash-success">
+				<strong>Correct!</strong>
+			</div>
+			<div class="alert alert-warning hidden" id="flash-warning">
+				<strong>Wrong!</strong>
+			</div>
+		</div>
+
+		<div class="piano">
+			<button class="note-button btn btn-info" data-note="a">A</button>
+			<button class="note-button btn btn-info" data-note="b">B</button>
+			<button class="note-button btn btn-info" data-note="c">C</button>
+			<button class="note-button btn btn-info" data-note="d">D</button>
+			<button class="note-button btn btn-info" data-note="e">E</button>
+			<button class="note-button btn btn-info" data-note="f">F</button>
+			<button class="note-button btn btn-info" data-note="g">G</button>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	// random tussen 1 en 5
+	var nodeName;
+
+	$(".note-button").click(function() {
+		var clickedNode = $(this).data("note");
+
+		if(clickedNode === nodeName) {
+			$("#flash-success").removeClass("hidden");
+			$("#flash-warning").addClass("hidden");
+		} else {
+			$("#flash-success").addClass("hidden");
+			$("#flash-warning").removeClass("hidden");
+		}
+
+		$('*[data-note=' + nodeName + ']').addClass("btn-success");
+		$('*[data-note=' + nodeName + ']').removeClass("btn-info");
+
+		setTimeout(function() {
+			reset()
+		}, 1000);
+	});
+
+	function reset() {
+		$("#flash-warning").addClass("hidden");
+		$("#flash-success").addClass("hidden");
+		$('.note-button').removeClass("btn-success");
+		$('.note-button').addClass("btn-info");
+
+		generateNote();
+	}
+
+	function lookUpName(number) {
+		switch(number) {
+			case 0: 
+				return "a";
+				break;
+			case 1: 
+				return "b";
+				break;
+			case 2: 
+				return "c";
+				break;
+			case 3: 
+				return "d";
+				break;
+			case 4: 
+				return "e";
+				break;
+			case 5: 
+				return "f";
+				break;
+			case 6: 
+				return "g";
+				break;
+		}
+	}
+
+	function generateNote() {
+		var number = Math.floor(Math.random() * 7);
+		nodeName = lookUpName(number);
+	}
+
+	generateNote();
+</script>
