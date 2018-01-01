@@ -6,13 +6,12 @@
 			Right hand bar
 		</div>
 		<div style="position:relative;">
-			<svg height="100" width="150">
+			<svg height="100" width="150" id="right-hand-notebar">
 				<line x1="0" y1="30" x2="200" y2="30" style="stroke:rgb(0,0,0); stroke-width:1" />
 				<line x1="0" y1="40" x2="200" y2="40" style="stroke:rgb(0,0,0); stroke-width:1" />
 				<line x1="0" y1="50" x2="200" y2="50" style="stroke:rgb(0,0,0); stroke-width:1" />
 				<line x1="0" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0); stroke-width:1" />
 				<line x1="0" y1="70" x2="200" y2="70" style="stroke:rgb(0,0,0); stroke-width:1" />
-				<ellipse cx="90" cy="30" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2" />
 			</svg>
 			<%= image_tag("right_hand.png", size: "71x79", style: "position: absolute; left: -5px; top: 12px;" ) %>
 		</div>
@@ -27,13 +26,12 @@
 		</div>
 
 		<div style="position:relative;">
-			<svg height="100" width="150">
+			<svg height="100" width="150" id="left-hand-notebar">
 				<line x1="0" y1="30" x2="200" y2="30" style="stroke:rgb(0,0,0); stroke-width:1" />
 				<line x1="0" y1="40" x2="200" y2="40" style="stroke:rgb(0,0,0); stroke-width:1" />
 				<line x1="0" y1="50" x2="200" y2="50" style="stroke:rgb(0,0,0); stroke-width:1" />
 				<line x1="0" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0); stroke-width:1" />
 				<line x1="0" y1="70" x2="200" y2="70" style="stroke:rgb(0,0,0); stroke-width:1" />
-				<ellipse cx="90" cy="30" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2" />
 			</svg>
 			<%= image_tag("left_hand.png", size: "28x33", style: "position: absolute; left: 21px; top: 30px;" ) %>
 		</div>
@@ -45,15 +43,6 @@
 			Piano keys
 		</div>
 
-		<div>
-			<div class="alert alert-success hidden" id="flash-success">
-				<strong>Correct!</strong>
-			</div>
-			<div class="alert alert-warning hidden" id="flash-warning">
-				<strong>Wrong!</strong>
-			</div>
-		</div>
-
 		<div class="piano">
 			<button class="note-button btn btn-info" data-note="a">A</button>
 			<button class="note-button btn btn-info" data-note="b">B</button>
@@ -62,6 +51,15 @@
 			<button class="note-button btn btn-info" data-note="e">E</button>
 			<button class="note-button btn btn-info" data-note="f">F</button>
 			<button class="note-button btn btn-info" data-note="g">G</button>
+		</div>
+
+		<div>
+			<div class="alert alert-success hidden" id="flash-success">
+				<strong>Correct!</strong>
+			</div>
+			<div class="alert alert-warning hidden" id="flash-warning">
+				<strong>Wrong!</strong>
+			</div>
 		</div>
 	</div>
 
@@ -96,6 +94,9 @@
 		$('.note-button').removeClass("btn-success");
 		$('.note-button').addClass("btn-info");
 
+		$('#current-node').remove();
+		$('#current-helper-bar').remove();
+
 		generateNote();
 	}
 
@@ -125,9 +126,46 @@
 		}
 	}
 
+	function lookUpCoordinates(number) {
+		switch(number) {
+			case 0: 
+				return 80;
+				break;
+			case 1: 
+				return 75;
+				break;
+			case 2: 
+				return 70;
+				break;
+			case 3: 
+				return 65;
+				break;
+			case 4: 
+				return 60;
+				break;
+			case 5: 
+				return 55;
+				break;
+			case 6: 
+				return 50;
+				break;
+		}
+	}
+
+	function placeNode(nodeCoordinates) {
+		$("#right-hand-notebar").appendNode('<ellipse cx="90" cy="' + nodeCoordinates + '" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2"  id="current-node" />');
+
+		if(nodeCoordinates % 10 == 0) {
+			$("#right-hand-notebar").appendNode('<line x1="70" y1="' + nodeCoordinates + '" x2="110" y2="' + nodeCoordinates + '" style="stroke:rgb(0,0,0); stroke-width:1" id="current-help-bar" />');
+		}
+	}
+
 	function generateNote() {
 		var number = Math.floor(Math.random() * 7);
 		nodeName = lookUpName(number);
+		nodeCoordinates = lookUpCoordinates(number);
+
+		placeNode(nodeCoordinates);
 	}
 
 	generateNote();
