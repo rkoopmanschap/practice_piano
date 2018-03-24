@@ -37,6 +37,24 @@
 		</div>
 	</div>
 
+	<!-- Messages -->
+	<div>
+		<div class="title">
+			Messages
+		</div>
+		<div>
+			<div class="alert alert-primary" id="flash-default">
+				<strong>Press the correct key!</strong>
+			</div>
+			<div class="alert alert-success hidden" id="flash-success">
+				<strong>Correct!</strong>
+			</div>
+			<div class="alert alert-warning hidden" id="flash-warning">
+				<strong>Wrong!</strong>
+			</div>
+		</div>
+	</div>
+
 	<!-- Piano Keys -->
 	<div>
 		<div class="title">
@@ -52,18 +70,133 @@
 			<button class="note-button btn btn-info" data-note="f">F</button>
 			<button class="note-button btn btn-info" data-note="g">G</button>
 		</div>
+	</div>
 
-		<div>
-			<div class="alert alert-success hidden" id="flash-success">
-				<strong>Correct!</strong>
-			</div>
-			<div class="alert alert-warning hidden" id="flash-warning">
-				<strong>Wrong!</strong>
-			</div>
+	<!-- Right Hand bar -->
+	<div style="margin-top:20px;">
+		<div class="title">
+			Piano
+		</div>
+		<div style="position:relative;">
+			<svg height="150" width="1100" id="piano">
+				<!-- extra left -->
+				<rect x="0" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="20" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<rect x="14" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<!-- group 1 -->
+				<rect x="40" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="1" data-note="c" class="piano-key"/>
+				<rect x="60" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="1" data-note="d" class="piano-key"/>
+				<rect x="80" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="1" data-note="e" class="piano-key"/>
+				<rect x="100" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="1" data-note="f" class="piano-key"/>
+				<rect x="120" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="1" data-note="g" class="piano-key"/>
+				<rect x="140" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="1" data-note="a" class="piano-key"/>
+				<rect x="160" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="1" data-note="b" class="piano-key"/>
+
+				<rect x="54" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="74" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="114" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="134" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="154" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<!-- group 2 -->
+				<rect x="180" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="2" data-note="c" class="piano-key"/>
+				<rect x="200" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="2" data-note="d" class="piano-key"/>
+				<rect x="220" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="2" data-note="e" class="piano-key"/>
+				<rect x="240" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="2" data-note="f" class="piano-key"/>
+				<rect x="260" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="2" data-note="g" class="piano-key"/>
+				<rect x="280" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="2" data-note="a" class="piano-key"/>
+				<rect x="300" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="2" data-note="b" class="piano-key"/>
+
+				<rect x="194" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="214" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="254" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="274" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="294" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<!-- group 3 -->
+				<rect x="320" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="3" data-note="c" class="piano-key"/>
+				<rect x="340" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="3" data-note="d" class="piano-key"/>
+				<rect x="360" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="3" data-note="e" class="piano-key"/>
+				<rect x="380" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="3" data-note="f" class="piano-key"/>
+				<rect x="400" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="3" data-note="g" class="piano-key"/>
+				<rect x="420" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="3" data-note="a" class="piano-key"/>
+				<rect x="440" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="3" data-note="b" class="piano-key"/>
+
+				<rect x="334" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="354" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="394" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="414" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="434" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<!-- group 4 -->
+				<rect x="460" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="4" data-note="c" class="piano-key"/>
+				<rect x="480" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="4" data-note="d" class="piano-key"/>
+				<rect x="500" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="4" data-note="e" class="piano-key"/>
+				<rect x="520" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="4" data-note="f" class="piano-key"/>
+				<rect x="540" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="4" data-note="g" class="piano-key"/>
+				<rect x="560" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="4" data-note="a" class="piano-key"/>
+				<rect x="580" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="4" data-note="b" class="piano-key"/>
+
+				<rect x="474" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="494" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="534" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="554" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="574" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<!-- group 5 -->
+				<rect x="600" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="5" data-note="c" class="piano-key"/>
+				<rect x="620" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="5" data-note="d" class="piano-key"/>
+				<rect x="640" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="5" data-note="e" class="piano-key"/>
+				<rect x="660" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="5" data-note="f" class="piano-key"/>
+				<rect x="680" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="5" data-note="g" class="piano-key"/>
+				<rect x="700" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="5" data-note="a" class="piano-key"/>
+				<rect x="720" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="5" data-note="b" class="piano-key"/>
+
+				<rect x="614" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="634" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="674" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="694" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="714" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<!-- group 6 -->
+				<rect x="740" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="6" data-note="c" class="piano-key"/>
+				<rect x="760" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="6" data-note="d" class="piano-key"/>
+				<rect x="780" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="6" data-note="e" class="piano-key"/>
+				<rect x="800" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="6" data-note="f" class="piano-key"/>
+				<rect x="820" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="6" data-note="g" class="piano-key"/>
+				<rect x="840" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="6" data-note="a" class="piano-key"/>
+				<rect x="860" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="6" data-note="b" class="piano-key"/>
+
+				<rect x="754" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="774" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="814" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="834" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="854" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<!-- group 7 -->
+				<rect x="880" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="7" data-note="c" class="piano-key"/>
+				<rect x="900" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="7" data-note="d" class="piano-key"/>
+				<rect x="920" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="7" data-note="e" class="piano-key"/>
+				<rect x="940" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="7" data-note="f" class="piano-key"/>
+				<rect x="960" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="7" data-note="g" class="piano-key"/>
+				<rect x="980" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="7" data-note="a" class="piano-key"/>
+				<rect x="1000" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" data-scale="7" data-note="b" class="piano-key"/>
+
+				<rect x="894" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="914" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="954" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="974" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+				<rect x="994" y="0" width="12" height="80" style="fill:black; stroke:rgb(0,0,0); stroke-width:1" />
+
+				<!-- leftover right -->
+				<rect x="1020" y="0" width="20" height="120" style="fill:white; stroke:rgb(0,0,0); stroke-width:1" />
+			</svg>
 		</div>
 	</div>
 
-	<!-- Piano Keys -->
+	<!-- Settings -->
 	<div>
 		<div class="title">
 			Settings
@@ -82,6 +215,8 @@
   				<input type="radio" name="hand-selection-field" id="hand-selection-field-left" value="left"> 
   				<label for="hand-selection-field-left">Left</label>
 			</div>
+			<!-- TODO: Add keys or notenames setting -->
+			<!-- TODO: Hide not relevant notebar -->
 		</div>
 	</div>
 
@@ -100,12 +235,10 @@
 		$("#note-min").change(function() {
 			noteMin = parseInt($("#note-min").val());
 			if(noteMin > noteMax) {
-				console.log("more than max");
 				noteMin = noteMax;
 				$("#note-min").val(noteMin);
 			}
 			if(noteMin < 1) {
-				console.log("less then 1");
 				noteMin = 1;
 				$("#note-min").val(noteMin);
 			}
@@ -143,21 +276,50 @@
 		// 		End
 		// =============
 
-		var nodeName;		
+		var noteName;
+		var noteScale;
 
 		$(".note-button").click(function() {
-			var clickedNode = $(this).data("note");
+			var clickedNote = $(this).data("note");
 
-			if(clickedNode === nodeName) {
-				$("#flash-success").removeClass("hidden");
-				$("#flash-warning").addClass("hidden");
+			if(clickedNote === noteName) {
+				flashSuccess();
 			} else {
-				$("#flash-success").addClass("hidden");
-				$("#flash-warning").removeClass("hidden");
+				flashFail();
 			}
 
-			$('*[data-note=' + nodeName + ']').addClass("btn-success");
-			$('*[data-note=' + nodeName + ']').removeClass("btn-info");
+			$('*[data-note=' + noteName + ']').addClass("btn-success");
+			$('*[data-note=' + noteName + ']').removeClass("btn-info");
+
+			setTimeout(function() {
+				reset()
+			}, 1000);
+		});
+
+		function flashSuccess() {
+			$("#flash-success").removeClass("hidden");
+			$("#flash-default").addClass("hidden");
+			$("#flash-warning").addClass("hidden");
+		}
+
+		function flashFail() {
+			$("#flash-success").addClass("hidden");
+			$("#flash-default").addClass("hidden");
+			$("#flash-warning").removeClass("hidden");
+		}
+
+		$(".piano-key").click(function() {
+			var clickedNote = $(this).data("note");
+			var clickedScale = $(this).data("scale");
+
+			if(clickedNote === noteName && clickedScale === noteScale) {
+				flashSuccess();
+			} else {
+				flashFail();
+			}
+
+			$('*[data-note=' + noteName + ']').addClass("btn-success"); // make key green
+			$('*[data-note=' + noteName + ']').removeClass("btn-info"); // make key green
 
 			setTimeout(function() {
 				reset()
@@ -167,6 +329,7 @@
 		function reset() {
 			$("#flash-warning").addClass("hidden");
 			$("#flash-success").addClass("hidden");
+			$("#flash-default").removeClass("hidden");
 			$('.note-button').removeClass("btn-success");
 			$('.note-button').addClass("btn-info");
 
@@ -230,11 +393,22 @@
 			}
 		}
 
+		function lookUpScale(number, hand) {
+			if(hand === "right") {
+				return 1;
+			}
+
+			if(hand === "left") {
+				return 1;
+			}
+
+		}
+
 		function lookUpCoordinates(number) {
 			return 80 - (number * 5);
 		}
 
-		function placeNode(nodeCoordinates, hand) {
+		function placeNode(noteCoordinates, hand) {
 			var notebar;
 			if(hand === "right") {
 				notebar = $("#right-hand-notebar");
@@ -242,10 +416,10 @@
 				notebar = $("#left-hand-notebar");
 			}
 			
-			notebar.append('<ellipse cx="90" cy="' + nodeCoordinates + '" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2" id="current-node" />');
+			notebar.append('<ellipse cx="90" cy="' + noteCoordinates + '" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2" id="current-node" />');
 
-			if(nodeCoordinates % 10 == 0) {
-				notebar.append('<line x1="70" y1="' + nodeCoordinates + '" x2="110" y2="' + nodeCoordinates + '" style="stroke:rgb(0,0,0); stroke-width:1" id="current-help-bar" />');
+			if(noteCoordinates % 10 == 0) {
+				notebar.append('<line x1="70" y1="' + noteCoordinates + '" x2="110" y2="' + noteCoordinates + '" style="stroke:rgb(0,0,0); stroke-width:1" id="current-help-bar" />');
 			}
 
 			refreshSVG();
@@ -259,10 +433,11 @@
 		function generateNote(hand) {
 			var range = noteMax - noteMin;
 			var number = Math.floor((Math.random() * (range + 1)) + (noteMin - 1));
-			nodeName = lookUpName(number, hand);
-			nodeCoordinates = lookUpCoordinates(number);
+			noteName = lookUpName(number, hand);
+			var noteCoordinates = lookUpCoordinates(number);
+			noteScale = lookUpScale(number, hand);
 
-			placeNode(nodeCoordinates, hand);
+			placeNode(noteCoordinates, hand);
 		}
 
 		generateNote(handSelected);
