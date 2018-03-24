@@ -63,110 +63,148 @@
 		</div>
 	</div>
 
+	<!-- Piano Keys -->
+	<div>
+		<div class="title">
+			Settings
+		</div>
+
+		<div class="settings">
+			<div class="note-selection">
+				<span>Note Range:</span>
+				<input type="number" id="note-min" value="1" class="note-selection-field">
+				<input type="number" id="note-max" value="7" class="note-selection-field">
+			</div>
+		</div>
+	</div>
+
 </div>
 
 <script>
-	// random tussen 1 en 5
-	var nodeName;
+	$(window).on('load', function() {
 
-	$(".note-button").click(function() {
-		var clickedNode = $(this).data("note");
+		// =============
+		// Node Settings
+		// =============
 
-		if(clickedNode === nodeName) {
-			$("#flash-success").removeClass("hidden");
+		var noteMin = $("#note-min").val();
+		var noteMax = $("#note-max").val();
+
+		$("#note-min").change(function() {
+			noteMin = $("#note-min").val();
+			if(noteMin > noteMax) {
+				noteMin = noteMax;
+				$("#note-min").val(noteMin);
+			}
+			if(noteMin < 1) {
+				noteMin = 1;
+				$("#note-min").val(noteMin);
+			}
+		});
+
+		$("#note-max").change(function() {
+			noteMax = $("#note-max").val();
+			if(noteMax < noteMin) {
+				noteMax = noteMin;
+				$("#note-max").val(noteMax);
+			}
+			if(noteMax > 13) {
+				noteMax = 13;
+				$("#note-max").val(noteMax);
+			}
+		});
+
+		// =============
+		// 		End
+		// =============
+
+		var nodeName;		
+
+		$(".note-button").click(function() {
+			var clickedNode = $(this).data("note");
+
+			if(clickedNode === nodeName) {
+				$("#flash-success").removeClass("hidden");
+				$("#flash-warning").addClass("hidden");
+			} else {
+				$("#flash-success").addClass("hidden");
+				$("#flash-warning").removeClass("hidden");
+			}
+
+			$('*[data-note=' + nodeName + ']').addClass("btn-success");
+			$('*[data-note=' + nodeName + ']').removeClass("btn-info");
+
+			setTimeout(function() {
+				reset()
+			}, 1000);
+		});
+
+		function reset() {
 			$("#flash-warning").addClass("hidden");
-		} else {
 			$("#flash-success").addClass("hidden");
-			$("#flash-warning").removeClass("hidden");
+			$('.note-button').removeClass("btn-success");
+			$('.note-button').addClass("btn-info");
+
+			$('#current-node').remove();
+			$('#current-help-bar').remove();
+
+			generateNote();
 		}
 
-		$('*[data-note=' + nodeName + ']').addClass("btn-success");
-		$('*[data-note=' + nodeName + ']').removeClass("btn-info");
+		function lookUpName(number) {
+			switch(number % 7) {
+				case 0: 
+					return "c";
+					break;
+				case 1: 
+					return "d";
+					break;
+				case 2: 
+					return "e";
+					break;
+				case 3: 
+					return "f";
+					break;
+				case 4: 
+					return "g";
+					break;
+				case 5: 
+					return "a";
+					break;
+				case 6: 
+					return "b";
+					break;
+			}
+		}
 
-		setTimeout(function() {
-			reset()
-		}, 1000);
-	});
+		function lookUpCoordinates(number) {
+			return 80 - (number * 5);
+		}
 
-	function reset() {
-		$("#flash-warning").addClass("hidden");
-		$("#flash-success").addClass("hidden");
-		$('.note-button').removeClass("btn-success");
-		$('.note-button').addClass("btn-info");
+		function placeNode(nodeCoordinates) {
+			$("#right-hand-notebar").append('<ellipse cx="90" cy="' + nodeCoordinates + '" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2"  id="current-node" />');
 
-		$('#current-node').remove();
-		$('#current-helper-bar').remove();
+			if(nodeCoordinates % 10 == 0) {
+				$("#right-hand-notebar").append('<line x1="70" y1="' + nodeCoordinates + '" x2="110" y2="' + nodeCoordinates + '" style="stroke:rgb(0,0,0); stroke-width:1" id="current-help-bar" />');
+			}
+
+			refreshSVG();
+		}
+
+		function refreshSVG() {
+			$("#right-hand-notebar").html($("#right-hand-notebar").html());
+		}
+
+		function generateNote() {
+			var range = noteMax - noteMin;
+			var number = Math.floor((Math.random() * (range + 1)) + (noteMin - 1));
+			nodeName = lookUpName(number);
+			nodeCoordinates = lookUpCoordinates(number);
+
+			placeNode(nodeCoordinates);
+		}
 
 		generateNote();
-	}
-
-	function lookUpName(number) {
-		switch(number) {
-			case 0: 
-				return "a";
-				break;
-			case 1: 
-				return "b";
-				break;
-			case 2: 
-				return "c";
-				break;
-			case 3: 
-				return "d";
-				break;
-			case 4: 
-				return "e";
-				break;
-			case 5: 
-				return "f";
-				break;
-			case 6: 
-				return "g";
-				break;
-		}
-	}
-
-	function lookUpCoordinates(number) {
-		switch(number) {
-			case 0: 
-				return 80;
-				break;
-			case 1: 
-				return 75;
-				break;
-			case 2: 
-				return 70;
-				break;
-			case 3: 
-				return 65;
-				break;
-			case 4: 
-				return 60;
-				break;
-			case 5: 
-				return 55;
-				break;
-			case 6: 
-				return 50;
-				break;
-		}
-	}
-
-	function placeNode(nodeCoordinates) {
-		$("#right-hand-notebar").appendNode('<ellipse cx="90" cy="' + nodeCoordinates + '" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2"  id="current-node" />');
-
-		if(nodeCoordinates % 10 == 0) {
-			$("#right-hand-notebar").appendNode('<line x1="70" y1="' + nodeCoordinates + '" x2="110" y2="' + nodeCoordinates + '" style="stroke:rgb(0,0,0); stroke-width:1" id="current-help-bar" />');
-		}
-	}
-
-	function generateNote() {
-		var number = Math.floor(Math.random() * 7);
-		nodeName = lookUpName(number);
-		nodeCoordinates = lookUpCoordinates(number);
-
-		placeNode(nodeCoordinates);
-	}
-
-	generateNote();
+	});
+	
 </script>
