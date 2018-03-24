@@ -69,11 +69,18 @@
 			Settings
 		</div>
 
-		<div class="settings">
-			<div class="note-selection">
+		<div class="settings row">
+			<div class="note-selection col-xs-6">
 				<span>Note Range:</span>
 				<input type="number" id="note-min" value="1" class="note-selection-field">
 				<input type="number" id="note-max" value="7" class="note-selection-field">
+			</div>
+			<div class="hand-selection col-xs-6">
+				Hand:
+				<input type="radio" name="hand-selection-field" id="hand-selection-field-right" value="right" checked>
+  				<label for="hand-selection-field-right">Right</label>
+  				<input type="radio" name="hand-selection-field" id="hand-selection-field-left" value="left"> 
+  				<label for="hand-selection-field-left">Left</label>
 			</div>
 		</div>
 	</div>
@@ -102,6 +109,7 @@
 				noteMin = 1;
 				$("#note-min").val(noteMin);
 			}
+			reset();
 		});
 
 		$("#note-max").change(function() {
@@ -114,6 +122,21 @@
 				noteMax = 13;
 				$("#note-max").val(noteMax);
 			}
+			reset();
+		});
+
+		// =============
+		// 		End
+		// =============
+
+		// =============
+		// Hand Settings
+		// =============
+
+		var handSelected = $('input[name=hand-selection-field]:checked').val();
+		$("input[name=hand-selection-field]").change(function() {
+			handSelected = $('input[name=hand-selection-field]:checked').val();
+			reset();
 		});
 
 		// =============
@@ -150,32 +173,60 @@
 			$('#current-node').remove();
 			$('#current-help-bar').remove();
 
-			generateNote();
+			generateNote(handSelected);
 		}
 
-		function lookUpName(number) {
-			switch(number % 7) {
-				case 0: 
-					return "c";
-					break;
-				case 1: 
-					return "d";
-					break;
-				case 2: 
-					return "e";
-					break;
-				case 3: 
-					return "f";
-					break;
-				case 4: 
-					return "g";
-					break;
-				case 5: 
-					return "a";
-					break;
-				case 6: 
-					return "b";
-					break;
+		function lookUpName(number, hand) {
+			if(hand === "right") {
+				switch(number % 7) {
+					case 0: 
+						return "c";
+						break;
+					case 1: 
+						return "d";
+						break;
+					case 2: 
+						return "e";
+						break;
+					case 3: 
+						return "f";
+						break;
+					case 4: 
+						return "g";
+						break;
+					case 5: 
+						return "a";
+						break;
+					case 6: 
+						return "b";
+						break;
+				}
+			}
+
+			if(hand === "left") {
+				switch(number % 7) {
+					case 0: 
+						return "e";
+						break;
+					case 1: 
+						return "f";
+						break;
+					case 2: 
+						return "g";
+						break;
+					case 3: 
+						return "a";
+						break;
+					case 4: 
+						return "b";
+						break;
+					case 5: 
+						return "c";
+						break;
+					case 6: 
+						return "d";
+						break;
+				}
 			}
 		}
 
@@ -183,11 +234,18 @@
 			return 80 - (number * 5);
 		}
 
-		function placeNode(nodeCoordinates) {
-			$("#right-hand-notebar").append('<ellipse cx="90" cy="' + nodeCoordinates + '" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2"  id="current-node" />');
+		function placeNode(nodeCoordinates, hand) {
+			var notebar;
+			if(hand === "right") {
+				notebar = $("#right-hand-notebar");
+			} else if(hand === "left") {
+				notebar = $("#left-hand-notebar");
+			}
+			
+			notebar.append('<ellipse cx="90" cy="' + nodeCoordinates + '" rx="7" ry="4" style="fill:white;stroke:black;stroke-width:2" id="current-node" />');
 
 			if(nodeCoordinates % 10 == 0) {
-				$("#right-hand-notebar").append('<line x1="70" y1="' + nodeCoordinates + '" x2="110" y2="' + nodeCoordinates + '" style="stroke:rgb(0,0,0); stroke-width:1" id="current-help-bar" />');
+				notebar.append('<line x1="70" y1="' + nodeCoordinates + '" x2="110" y2="' + nodeCoordinates + '" style="stroke:rgb(0,0,0); stroke-width:1" id="current-help-bar" />');
 			}
 
 			refreshSVG();
@@ -195,18 +253,19 @@
 
 		function refreshSVG() {
 			$("#right-hand-notebar").html($("#right-hand-notebar").html());
+			$("#left-hand-notebar").html($("#left-hand-notebar").html());
 		}
 
-		function generateNote() {
+		function generateNote(hand) {
 			var range = noteMax - noteMin;
 			var number = Math.floor((Math.random() * (range + 1)) + (noteMin - 1));
-			nodeName = lookUpName(number);
+			nodeName = lookUpName(number, hand);
 			nodeCoordinates = lookUpCoordinates(number);
 
-			placeNode(nodeCoordinates);
+			placeNode(nodeCoordinates, hand);
 		}
 
-		generateNote();
+		generateNote(handSelected);
 	});
 	
 </script>
