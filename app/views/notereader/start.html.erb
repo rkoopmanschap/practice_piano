@@ -1,7 +1,22 @@
 <div class="notereader-page">
 
+	<!-- Messages -->
+	<div>
+		<div class="text-center">
+			<div class="alert alert-primary" id="flash-default">
+				<strong>Press the correct key!</strong>
+			</div>
+			<div class="alert alert-success hidden" id="flash-success">
+				<strong>Correct!</strong>
+			</div>
+			<div class="alert alert-warning hidden" id="flash-warning">
+				<strong>Wrong!</strong>
+			</div>
+		</div>
+	</div>
+
 	<!-- Right Hand bar -->
-	<div style="margin-top:20px;">
+	<div style="margin-top:20px;" id="right-hand-bar">
 		<div class="title">
 			Right hand bar
 		</div>
@@ -20,7 +35,7 @@
 	</div>
 
 	<!-- Left Hand bar -->
-	<div>
+	<div  id="left-hand-bar" class="hidden">
 		<div class="title">
 			Left hand bar
 		</div>
@@ -37,28 +52,10 @@
 		</div>
 	</div>
 
-	<!-- Messages -->
-	<div>
+	<!-- Note names -->
+	<div id="note-names" class="hidden">
 		<div class="title">
-			Messages
-		</div>
-		<div>
-			<div class="alert alert-primary" id="flash-default">
-				<strong>Press the correct key!</strong>
-			</div>
-			<div class="alert alert-success hidden" id="flash-success">
-				<strong>Correct!</strong>
-			</div>
-			<div class="alert alert-warning hidden" id="flash-warning">
-				<strong>Wrong!</strong>
-			</div>
-		</div>
-	</div>
-
-	<!-- Piano Keys -->
-	<div>
-		<div class="title">
-			Piano keys
+			Note names
 		</div>
 
 		<div class="piano">
@@ -72,8 +69,8 @@
 		</div>
 	</div>
 
-	<!-- Right Hand bar -->
-	<div style="margin-top:20px;">
+	<!-- Piano -->
+	<div style="margin-top:20px;" id="piano-input">
 		<div class="title">
 			Piano
 		</div>
@@ -215,7 +212,13 @@
   				<input type="radio" name="hand-selection-field" id="hand-selection-field-left" value="left"> 
   				<label for="hand-selection-field-left">Left</label>
 			</div>
-			<!-- TODO: Add keys or notenames setting -->
+			<div class="input-selection col-xs-6">
+				Input:
+				<input type="radio" name="input-selection-field" id="input-selection-field-piano" value="piano" checked>
+  				<label for="input-selection-field-piano">Piano</label>
+  				<input type="radio" name="input-selection-field" id="input-selection-field-note-names" value="note-names">
+  				<label for="input-selection-field-note-names">Note names</label>
+			</div>
 			<!-- TODO: Hide not relevant notebar -->
 		</div>
 	</div>
@@ -226,7 +229,7 @@
 	$(window).on('load', function() {
 
 		// =============
-		// Node Settings
+		// Note Settings
 		// =============
 
 		var noteMin = $("#note-min").val();
@@ -269,6 +272,34 @@
 		var handSelected = $('input[name=hand-selection-field]:checked').val();
 		$("input[name=hand-selection-field]").change(function() {
 			handSelected = $('input[name=hand-selection-field]:checked').val();
+			if(handSelected === "right") {
+				$("#right-hand-bar").removeClass("hidden");
+				$("#left-hand-bar").addClass("hidden");
+			} else if(handSelected === "left") {
+				$("#right-hand-bar").addClass("hidden");
+				$("#left-hand-bar").removeClass("hidden");
+			}
+			reset();
+		});
+
+		// =============
+		// 		End
+		// =============
+
+		// ==============
+		// Input Settings
+		// ==============
+
+		var inputSelected;
+		$("input[name=input-selection-field]").change(function() {
+			inputSelected = $('input[name=input-selection-field]:checked').val();
+			if(inputSelected === "piano") {
+				$("#piano-input").removeClass("hidden");
+				$("#note-names").addClass("hidden");
+			} else if(inputSelected === "note-names") {
+				$("#piano-input").addClass("hidden");
+				$("#note-names").removeClass("hidden");
+			}
 			reset();
 		});
 
@@ -318,8 +349,7 @@
 				flashFail();
 			}
 
-			$('*[data-note=' + noteName + ']').addClass("btn-success"); // make key green
-			$('*[data-note=' + noteName + ']').removeClass("btn-info"); // make key green
+			$('.piano-key[data-note=' + noteName + '][data-scale=' + noteScale + ']').css("fill", "green");
 
 			setTimeout(function() {
 				reset()
@@ -335,6 +365,8 @@
 
 			$('#current-node').remove();
 			$('#current-help-bar').remove();
+
+			$('.piano-key').css("fill", "white");
 
 			generateNote(handSelected);
 		}
@@ -395,20 +427,21 @@
 
 		function lookUpScale(number, hand) {
 			if(hand === "right") {
-				return 1;
+				if(number <= 6) { return 4; }
+				if(number > 6 && number <= 13) { return 5; }
+				if(number > 13 && number <= 20) { return 6; }
+			} else if(hand === "left") {
+				if(number <= 4) { return 2; }
+				if(number > 4 && number <= 11) { return 3; }
+				if(number > 11 && number <= 18) { return 4; }
 			}
-
-			if(hand === "left") {
-				return 1;
-			}
-
 		}
 
 		function lookUpCoordinates(number) {
 			return 80 - (number * 5);
 		}
 
-		function placeNode(noteCoordinates, hand) {
+		function placeNote(noteCoordinates, hand) {
 			var notebar;
 			if(hand === "right") {
 				notebar = $("#right-hand-notebar");
@@ -437,7 +470,7 @@
 			var noteCoordinates = lookUpCoordinates(number);
 			noteScale = lookUpScale(number, hand);
 
-			placeNode(noteCoordinates, hand);
+			placeNote(noteCoordinates, hand);
 		}
 
 		generateNote(handSelected);
