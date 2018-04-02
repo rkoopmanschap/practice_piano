@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="description" content="Practice reading piano notes with this extremely easy to use website">
-    <meta name="keywords" content="piano,note reading,practice piano">
-    <title>Practice Piano</title>
-    <%= csrf_meta_tags %>
+	<head>
+		<!-- Global Site Tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116708963-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+			gtag('config', 'UA-116708963-1');
+		</script>
+		<meta name="description" content="Practice reading piano notes with this extremely easy to use website">
+		<meta name="keywords" content="piano,note reading,practice piano">
+		<title>Practice Piano</title>
+		<%= csrf_meta_tags %>
 
-  <body>
-  	<%= render "layouts/header" %>
-    <%= yield %>
-    <%= render "layouts/footer" %>
-  </body>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
+
+	<body>
+		<%= render "layouts/header" %>
+		<%= yield %>
+		<%= render "layouts/footer" %>
+	</body>
 </html>
